@@ -22,8 +22,9 @@ import java.util.Random;
 /**
  * 访问：http://localhost:8201/swagger-ui.html#/
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/admin/hosp/hospitalSet")
+@RequestMapping("admin/hosp/hospitalSet")
 @Api(tags = "医院设置管理")
 public class HospitalSetController {
 
@@ -92,8 +93,7 @@ public class HospitalSetController {
      * @param id 所查询记录的 id
      * @return 所查询的记录
      */
-
-    @GetMapping("getAllHospitalSet/{id}")
+    @GetMapping("getHospitalSetById/{id}")
     public Result getHospitalSetById(@PathVariable Long id){
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         return hospitalSet == null ? Result.fail() : Result.ok(hospitalSet);
@@ -110,6 +110,13 @@ public class HospitalSetController {
         return list == null ? Result.fail() : Result.ok(list);
     }
 
+    /**
+     * 4.3 条件查询带分页
+     * @param current 当前页
+     * @param limit 每页限制
+     * @param hospitalSetQueryVo 查询条件
+     * @return 查询结果
+     */
     @PostMapping("getPageHospitalSet/{current}/{limit}")
     public Result getPageHospitalSet(@PathVariable Long current,
                                      @PathVariable Long limit,
